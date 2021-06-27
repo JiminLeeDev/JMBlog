@@ -7,11 +7,11 @@ class Account(db.Model):
     id = db.Column(db.String(20), primary_key=True)
     password = db.Column(db.String(20), nullable=False)
     nickname = db.Column(db.String(20), nullable=False)
-    post = db.relationship(
-        "Post", db.backref("post_list", cascade="all, delete-orphan")
+    comment_id = db.Column(
+        db.Integer, db.ForeignKey("comment.id", ondelete="CASCADE"), nullable=True
     )
-    comment = db.relationship(
-        "Comment", db.backref("comment_list", cascade="all, delete-orphan")
+    post_id = db.Column(
+        db.Integer, db.ForeignKey("post.id", ondelete="CASCADE"), nullable=True
     )
 
 
@@ -21,11 +21,9 @@ class Post(db.Model):
     title = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
-    account = db.relationship(
-        "Account", db.backref("account_list", cascade="all, delete-orphan")
-    )
-    comment = db.relationship(
-        "Comment", db.backref("comment_list", cascade="all, delete-orphan")
+    account_id = db.Column(db.Integer, db.ForeignKey("account.id"))
+    comment_id = db.Column(
+        db.Integer, db.ForeignKey("comment.id", ondelete="CASCADE"), nullable=True
     )
 
 
@@ -34,9 +32,5 @@ class Comment(db.Model):
     title = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
-    account = db.relationship(
-        "Account", db.backref("account_list", cascade="all, delete-orphan")
-    )
-    post = db.relationship(
-        "Post", db.backref("post_list", cascade="all, delete-orphan")
-    )
+    account_id = db.Column(db.Integer, db.ForeignKey("account.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"))
