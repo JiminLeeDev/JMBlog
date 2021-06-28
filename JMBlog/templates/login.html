@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그 인</title>
+</head>
+
+<body>
+    <form action="{{ url_for('account.LoginConfirm') }}" method="POST">
+        ID : <input type="text" name="id" maxlength="20">
+        <br>
+        password : <input type="text" name="password" maxlength="20">
+        <br>
+        <input type="submit" value="확인">
+        <br>
+    </form>
+</body>
+
+</html>
